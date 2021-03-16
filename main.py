@@ -36,9 +36,19 @@ if __name__ == '__main__':
         proxy = input('是否使用代理[y/n]：')
         proxy = proxy.lower()
         if re.match('^(y|n)$', proxy):
-            break
+            if proxy == 'y':
+                proxy = True
+                break
+            elif proxy == 'n':
+                proxy = False
+                break
+            else:
+                print('选择出错')
         else:
             print('输入有误')
-
+    print('\n\n\n')
     print('开始测试')
-    print(ver, date.strftime('%Y%m%d'))
+    print('\n\n\n')
+    # while True:
+
+    # print(ver, date.strftime('%Y%m%d'))
