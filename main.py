@@ -2,15 +2,8 @@ import requests
 import re
 from datetime import datetime
 from datetime import timedelta
+from urllib3.exceptions import ProxySchemeUnknown
 
-
-# a = datetime.strptime(str(datastr), '%Y%m%d')
-
-# url = 'https://www.win-rar.com/fileadmin/winrar-versions/sc/sc20201211/rrlb/wrar600sc.exe'
-# my_proxies = {"http": "socks5h://127.0.0.1:7890", "https": "socks5h://127.0.0.1:7890"}
-# r = requests.get(url=url, proxies=my_proxies, timeout=5)
-# r = requests.get(url=url, proxies=None, timeout=5)
-# print(r.status_code)
 
 def input_ver():
     while True:
@@ -51,11 +44,24 @@ def input_proxies():
                 'http': proxy,
                 'https': proxy
             }
-            _r = requests.get(url='http://connect.rom.miui.com/generate_204', proxies=_proxies, timeout=5)
-            if not _r.status_code == 204:
-                print('代理无效')
+            print('测试代理有效性')
+            try:
+                _r = requests.get(url='http://connect.rom.miui.com/generate_204', proxies=_proxies, timeout=5)
+            except ProxySchemeUnknown as e:
+                print('不支持的代理类型', end='')
+                print(e)
+                continue
+            except ConnectionError as e:
+                print('连接错误', end='')
+                print(e)
+                continue
             else:
-                return _proxies
+                if not _r.status_code == 204:
+                    print('代理无效')
+                    continue
+                else:
+                    print('代理有效')
+                    return _proxies
 
 
 if __name__ == '__main__':
