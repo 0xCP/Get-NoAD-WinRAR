@@ -11,7 +11,7 @@ WinRAR压缩很好用，但是国内版的有弹窗广告
 1.先从国内WinRAR [网站](http://www.winrar.com.cn/download.htm) 获取最新版本的版本号，版本号为三位数字。当前最新为600  
 2.下载国内版的安装包后右键查看安装包数字签名日期  
 图中日期为*20201211*  
-![文件数字签名](./img/数字签名.png)
+![文件数字签名](./img/数字签名.png)  
 3.克隆本仓库  
 `git clone https://gitee.com/n233333/get-noad-rar.git`
 
