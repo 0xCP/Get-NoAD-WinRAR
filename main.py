@@ -63,29 +63,36 @@ if __name__ == '__main__':
     ver = input_ver()
     date = input_date()
     proxies = input_proxies()
-    print('')
-    print('开始测试')
-    if int(ver) >= 580:
-        maxdate = date + timedelta(days=10)
-        mindate = date - timedelta(days=10)
-        while True:
+    print('\n开始测试')
+    maxdate = date + timedelta(days=3)
+    mindate = date - timedelta(days=20)
+    while True:
+        if int(ver) >= 580:
             url = 'https://www.win-rar.com/fileadmin/winrar-versions/sc/sc' + maxdate.strftime(
                 '%Y%m%d') + '/rrlb/winrar-x64-' + ver + 'sc.exe'
-            print('测试:' + url, end='  ')
-            if proxies:
-                r = requests.get(url=url, proxies=proxies, timeout=5)
-            else:
-                r = requests.get(url=url, proxies=None, timeout=5)
-            print(r.status_code)
-            if r.status_code == 200:
-                url_32 = 'https://www.win-rar.com/fileadmin/winrar-versions/sc/sc' + maxdate.strftime(
-                    '%Y%m%d') + '/rrlb/wrar' + ver + 'sc.exe'
+        else:
+            url = 'https://www.win-rar.com/fileadmin/winrar-versions/sc' + maxdate.strftime(
+                '%Y%m%d') + '/wrr/winrar-x64-' + ver + 'sc.exe'
+        print('测试:' + url, end='  ')
+        if proxies:
+            r = requests.get(url=url, proxies=proxies, timeout=5)
+        else:
+            r = requests.get(url=url, proxies=None, timeout=5)
+        print(r.status_code)
+        if r.status_code == 200:
+            if int(ver) >= 580:
                 url_64 = 'https://www.win-rar.com/fileadmin/winrar-versions/sc/sc' + maxdate.strftime(
                     '%Y%m%d') + '/rrlb/winrar-x64-' + ver + 'sc.exe'
-                print('\n\n成功获取到WinRAR%s版本的下载地址\n32位：%s\n64位：%s' % (ver, url_32, url_64))
-                break
-            maxdate -= timedelta(days=1)
-            if maxdate < mindate:
-                break
-    else:
-        pass
+                url_32 = 'https://www.win-rar.com/fileadmin/winrar-versions/sc/sc' + maxdate.strftime(
+                    '%Y%m%d') + '/rrlb/wrar' + ver + 'sc.exe'
+            else:
+                url_64 = 'https://www.win-rar.com/fileadmin/winrar-versions/sc' + maxdate.strftime(
+                    '%Y%m%d') + '/wrr/winrar-x64-' + ver + 'sc.exe'
+                url_32 = 'https://www.win-rar.com/fileadmin/winrar-versions/sc' + maxdate.strftime(
+                    '%Y%m%d') + '/wrr/wrar' + ver + 'sc.exe'
+            print('\n成功获取到WinRAR%s版本的下载地址\n\n32位：%s\n64位：%s' % (ver, url_32, url_64))
+            break
+        maxdate -= timedelta(days=1)
+        if maxdate < mindate:
+            break
+        continue
