@@ -14,12 +14,12 @@ from datetime import timedelta
 
 def input_ver():
     while True:
-        ver = input('输入版本号[571]：')
+        _ver = input('输入版本号[571]：')
         if re.match('^\\d{3}$', ver):
             break
         else:
             print('输入格式有误，应该为三位数字')
-    return ver
+    return _ver
 
 
 def input_date():
@@ -27,11 +27,11 @@ def input_date():
         datestr = input('输入国内版数字签名日期[20190509]：')
         if re.match('^\\d{8}$', datestr):
             try:
-                date = datetime.strptime(str(datestr), '%Y%m%d')
+                _date = datetime.strptime(str(datestr), '%Y%m%d')
             except ValueError:
                 print('输入的日期有误')
             else:
-                return date
+                return _date
         else:
             print('输入格式有误,应该为8位数字。')
 
@@ -40,7 +40,7 @@ def input_proxies():
     while True:
         proxy = input('是否使用代理[y/n]：')
         proxy = proxy.lower()
-        if not re.match('^(y|n)$', proxy):
+        if not re.match('^y|n$', proxy):
             print('输入有误，只能输入y或者n')
             continue
         if proxy == 'n':
@@ -48,15 +48,15 @@ def input_proxies():
         print('HTTP代理格式：http://user:pass@host:port\nSOCK代理格式：socks5://user:pass@host:port')
         while True:
             proxy = input('输入代理链接')
-            proxies = {
+            _proxies = {
                 'http': proxy,
                 'https': proxy
             }
-            r = requests.get(url='http://connect.rom.miui.com/generate_204', proxies=proxies, timeout=5)
-            if not r.status_code == 204:
+            _r = requests.get(url='http://connect.rom.miui.com/generate_204', proxies=_proxies, timeout=5)
+            if not _r.status_code == 204:
                 print('代理无效')
             else:
-                return proxies
+                return _proxies
 
 
 if __name__ == '__main__':
