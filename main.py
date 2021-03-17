@@ -79,7 +79,11 @@ if __name__ == '__main__':
                 r = requests.get(url=url, proxies=None, timeout=5)
             print(r.status_code)
             if r.status_code == 200:
-                print('\n\n成功获取到WinRAR%s版本的下载地址\n%s' % (ver, url))
+                url_32 = 'https://www.win-rar.com/fileadmin/winrar-versions/sc/sc' + maxdate.strftime(
+                    '%Y%m%d') + '/rrlb/wrar' + ver + 'sc.exe'
+                url_64 = 'https://www.win-rar.com/fileadmin/winrar-versions/sc/sc' + maxdate.strftime(
+                    '%Y%m%d') + '/rrlb/winrar-x64-' + ver + 'sc.exe'
+                print('\n\n成功获取到WinRAR%s版本的下载地址\n32位：%s\n64位：%s' % (ver, url_32, url_64))
                 break
             maxdate -= timedelta(days=1)
             if maxdate < mindate:
