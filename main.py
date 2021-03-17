@@ -15,11 +15,10 @@ from datetime import timedelta
 def input_ver():
     while True:
         _ver = input('输入版本号[571]：')
-        if re.match('^\\d{3}$', ver):
-            break
+        if re.match('^\\d{3}$', _ver):
+            return _ver
         else:
             print('输入格式有误，应该为三位数字')
-    return _ver
 
 
 def input_date():
@@ -64,7 +63,7 @@ if __name__ == '__main__':
     ver = input_ver()
     date = input_date()
     proxies = input_proxies()
-    print('\n')
+    print('')
     print('开始测试')
     if int(ver) >= 580:
         maxdate = date + timedelta(days=10)
